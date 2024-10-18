@@ -1,0 +1,20 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Jialin Lu
+	email = luxxxlucy@gmail.com
+[core]
+	editor = vim
+[alias]
+    st = status
+    pu = pull
+    up = push
+
+    l = "!. ~/.githelpers && pretty_git_log"
+    la = "!git l --all"
+    lr = "!git l -30"
+    lra = "!git lr --all"
+    lg = "!git l -G $1 -- $2"
