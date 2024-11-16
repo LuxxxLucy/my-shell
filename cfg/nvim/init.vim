@@ -131,6 +131,10 @@ augroup END
 nnoremap <silent> < gT<CR>
 nnoremap <silent> > gt<CR>
 
+" jump back to last edited buffer
+nnoremap <C-b> <C-^>
+inoremap <C-b> <esc><C-^>
+
 nnoremap tn :tabnew<CR>
 nnoremap td :tabclose<CR>
 nnoremap t1 :tabnext 1<CR>
