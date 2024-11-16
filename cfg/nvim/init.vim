@@ -12,7 +12,7 @@
 "====================================
 
 " 1. General Settings
-set nocompatible
+set nocompatible " Use Vim settings rather than Vi settings.
 filetype on
 filetype plugin on
 filetype indent on
@@ -22,10 +22,10 @@ set fileencodings=utf-8
 scriptencoding utf-8
 
 " Indentation
-set tabstop=4
-set softtabstop=4 
-set shiftwidth=4
-set expandtab
+set tabstop=4 " Show existing tabs with 4 spaces width.
+set softtabstop=4
+set shiftwidth=4 " When indenting with '>' use 4 spaces width.
+set expandtab " On pressing <Tab>, insert 4 spaces.
 set smartindent
 set autoindent
 set smarttab
@@ -35,33 +35,58 @@ set ttyfast
 set lazyredraw
 
 " Search
+set incsearch " Find the next match as we type the search.
 set ignorecase
-set hlsearch
-set incsearch
+set hlsearch " Highlight the search by default.
 set gdefault
 set magic
 
 " File handling
-set autoread
-set nobackup
+set autoread " Automatically re-read files if unmodified inside Vim.
+set nobackup " Disable swap and backup (all of backup, swapfile and wb).
 set noswapfile
+set nowb
 set autowrite
 set exrc
 set secure
+set confirm " Display a confirmation dialog when closing an unsaved file.
+set spell " Enable spell checking.
+
+set undofile " Enable persistent undo, maintaining undo history between sessions.
+let s:undodir = expand('~/.vim/undodir') " Set path for undodir.
+set undodir=~/.vim/undodir
+" Create undodir if it doesn't exist
+if !isdirectory(s:undodir)
+    call mkdir(s:undodir, "p", 0700)
+endif
+function! CleanOldUndoFiles() " Function to clean undo files older than 90 days.
+    let l:old_files = split(globpath(s:undodir, '*'), '\n')
+    let l:now = localtime()
+    for l:file in l:old_files
+        if (l:now - getftime(l:file)) > (90 * 24 * 60 * 60) " delete file if file is older than 90 days.
+            call delete(l:file)
+        endif
+    endfor
+endfunction
+autocmd VimEnter * call CleanOldUndoFiles() " Auto-clean when Vim starts
 
 " UI Elements
 set number
 set relativenumber
-set cursorline
+set cursorline " Highlight the line currently under cursor.
 set colorcolumn=120
-set ruler
+set ruler " Always show cursor position.
 set cmdheight=1
 set laststatus=2
 set showmatch
 set matchtime=1
-set scrolloff=3
-set mouse=a
+set scrolloff=3 " The number of screen lines to keep above and below the cursor.
+set sidescrolloff=5 " The number of screen columns to keep left and right of the cursor.
+set mouse=a " Enable mouse for scrolling and resizing.
 set clipboard+=unnamed
+set title " set window's title as the file currently being edited.
+set linebreak " Wrap lines at convenient points.
+syntax enable " Enable syntax highlighting.
 
 " Color scheme
 colorscheme habamax
