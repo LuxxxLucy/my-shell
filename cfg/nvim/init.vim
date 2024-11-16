@@ -38,6 +38,8 @@ set lazyredraw
 set incsearch " Find the next match as we type the search.
 set ignorecase
 set hlsearch " Highlight the search by default.
+" Use `,/` to remove the highlight of previous search.
+nmap <silent> ,/ :nohlsearch<CR>
 set gdefault
 set magic
 
