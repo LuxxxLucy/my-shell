@@ -4,7 +4,7 @@
 
 set -e
 
-# Provide email 
+# Provide email
 if [[ -z "$1" ]] ; then
     echo 'Email argument not provided. Aborting!'
     exit 1

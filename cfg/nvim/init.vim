@@ -183,7 +183,7 @@ function! Tabline() abort
 endfunction
 
 set tabline=%!Tabline()
- 
+
 nmap <space> :
 vmap <space> :
 runtime! plugin/rplugin.vim
@@ -247,7 +247,7 @@ unlet plug_install
 " Neovide specific settings
 if exists("g:neovide")
         let g:neovide_transparency=0.0
-        let g:transparency = 1 
+        let g:transparency = 1
         let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:transparency))
         let g:neovide_floating_blur_amount_x = 2.0
         let g:neovide_floating_blur_amount_y = 2.0
@@ -264,7 +264,7 @@ lua <<EOF
     vim.opt.listchars:append "eol:↴"
     vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
     vim.opt.shortmess = vim.opt.shortmess + { c = true}
-    vim.api.nvim_set_option('updatetime', 300) 
+    vim.api.nvim_set_option('updatetime', 300)
     vim.cmd([[
         set signcolumn=yes
         autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
@@ -273,7 +273,7 @@ lua <<EOF
     -- Set up NerdTree
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
-    
+
     vim.g.nvim_tree_show_icons = {
         git = 0,
         folders = 0,
