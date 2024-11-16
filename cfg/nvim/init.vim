@@ -54,6 +54,9 @@ set secure
 set confirm " Display a confirmation dialog when closing an unsaved file.
 set spell " Enable spell checking.
 
+" Use bo shortcut to browse recently edited files.
+nmap <silent> bo :browse old<CR>
+
 set undofile " Enable persistent undo, maintaining undo history between sessions.
 let s:undodir = expand('~/.vim/undodir') " Set path for undodir.
 set undodir=~/.vim/undodir
