@@ -95,6 +95,9 @@ syntax enable " Enable syntax highlighting.
 " Color scheme
 colorscheme habamax
 
+" Make . to work with visually selected lines in visual mode.
+vnoremap . :normal .<CR>
+
 " Auto reload changed file
 au CursorHold,CursorHoldI * checktime
 
