@@ -73,6 +73,10 @@ autocmd VimEnter * call CleanOldUndoFiles() " Auto-clean when Vim starts
 " UI Elements
 set number
 set relativenumber
+augroup toggle_relative_number " use relativenumber only in Normal mode.
+autocmd InsertEnter * :setlocal norelativenumber
+autocmd InsertLeave * :setlocal relativenumber
+
 set cursorline " Highlight the line currently under cursor.
 set colorcolumn=120
 set ruler " Always show cursor position.
