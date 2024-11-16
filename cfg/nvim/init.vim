@@ -112,8 +112,12 @@ augroup END
 autocmd VimEnter,WinEnter,BufRead,Syntax * highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd Syntax * syntax match ExtraWhitespace excludenl /\s\+$/ display containedin=ALL
 
-" Remember folding
-augroup remember_folds
+" Folder
+set foldenable " Enable folding.
+set foldlevelstart=10 " Open most of the folds by default.
+set foldnestmax=10 " Folds can be nested.
+set foldmethod=manual " Use `manual` folding.
+augroup remember_folds " Remember folding.
     autocmd!
     autocmd BufWinLeave .vimrc,*.h,*.cpp mkview
     autocmd BufWinEnter .vimrc,*.h,*.cpp silent! loadview
