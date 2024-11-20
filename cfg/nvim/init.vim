@@ -113,8 +113,8 @@ augroup END
 " Show trailing spaces in red
 autocmd VimEnter,WinEnter,BufRead,Syntax * highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd Syntax * syntax match ExtraWhitespace excludenl /\s\+$/ display containedin=ALL
-" remove trailing whitespaces automatically
-autocmd BufWritePre * :%s/\s\+$//e
+" remove trailing whitespaces automatically (for C/C++ files)
+autocmd FileType c,cpp autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Folder
 set foldenable " Enable folding.
