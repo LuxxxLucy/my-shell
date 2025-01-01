@@ -215,6 +215,10 @@ let g:smartim_default = 'com.apple.keylayout.ABC'
 " Command completion
 Plug 'gelguy/wilder.nvim'
 
+" SuperTab
+Plug 'ervandew/supertab'
+let g:SuperTabDefaultCompletionType = "<c-n>" " when hit <tab> it goes from top to bottom
+
 " Cursorline management
 Plug 'delphinus/auto-cursorline.nvim'
 
