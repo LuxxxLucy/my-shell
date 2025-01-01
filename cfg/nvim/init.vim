@@ -52,7 +52,7 @@ set autowrite
 set exrc
 set secure
 set confirm " Display a confirmation dialog when closing an unsaved file.
-set spell " Enable spell checking.
+set nospell " disble spell checking (in favour of Spelunker, which is an improved spellchecker)
 
 " Use bo shortcut to browse recently edited files.
 nmap <silent> bo :browse old<CR>
@@ -238,6 +238,18 @@ nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 " CSS color preview
 Plug 'ap/vim-css-color'
+
+" for spelunker
+Plug 'kamykn/popup-menu.nvim'
+
+" improved vim spell check
+Plug 'kamykn/spelunker.vim'
+let g:enable_spelunker_vim = 1 " enable spelunker
+let g:spelunker_highlight_type = 1
+let g:spelunker_disable_uri_checking = 1
+let g:spelunker_disable_acronym_checking = 1
+let g:spelunker_disable_backquoted_checking = 1
+nmap <silent> z= Zl
 
 " Status line
 Plug 'vim-airline/vim-airline'
