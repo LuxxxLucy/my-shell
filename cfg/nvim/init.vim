@@ -204,6 +204,9 @@ call plug#begin(stdpath('config') . '/plugged')
 " Tree-sitter for better syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter'
 
+" neovim org-mode
+Plug 'nvim-orgmode/orgmode'
+
 " File explorer
 Plug 'nvim-tree/nvim-tree.lua'
 map <C-n> :NvimTreeToggle<CR>
@@ -357,4 +360,23 @@ lua <<EOF
         },
         sorting_stratefy = "ascending",
     }
+
+    require('orgmode').setup({
+        org_agenda_files = {'~/Desktop/*.org'},
+        org_default_notes_file = '~/Desktop/todo.org',
+        mappings = {
+            org = {
+                org_toggle_checkbox = '<leader>tt',
+                org_move_subtree_up = '<leader>k',
+                org_move_subtree_down = '<leader>j',
+            }
+        }, 
+        callback = function()
+            vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
+                silent = true,
+                buffer = true,
+            })
+        end,
+    })
+
 EOF
