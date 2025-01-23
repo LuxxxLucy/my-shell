@@ -131,6 +131,14 @@ augroup END
 nnoremap <silent> < gT<CR>
 nnoremap <silent> > gt<CR>
 
+" like vscode like keystroke (alt-up and alt-down) to move select lines and down
+" to make more comfortable in vim, change to ctrl-j and ctrl-k.
+" work in normal mode as well as visual model (multiple line selected)
+noremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
 " jump back to last edited buffer
 nnoremap <C-b> <C-^>
 inoremap <C-b> <esc><C-^>
