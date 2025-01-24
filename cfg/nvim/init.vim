@@ -244,6 +244,9 @@ nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
 
+" <leader>* to search the current word
+nnoremap <leader>* :lua require('telescope.builtin').live_grep({ default_text = vim.fn.expand('<cword>') })<CR>
+
 " CSS color preview
 Plug 'ap/vim-css-color'
 
