@@ -19,3 +19,6 @@ echo "CONFIGURING tmux ..."
 . ./cfg/tmux/setup.sh
 
 echo "Done!"
+
+# in mac-os, enable press one key and quickly repeat it
+defaults write -g ApplePressAndHoldEnabled -bool false
