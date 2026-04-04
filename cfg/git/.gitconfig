@@ -4,8 +4,9 @@
 	process = git-lfs filter-process
 	required = true
 [user]
-	name = Jialin Lu
+	name = LU Jialin
 	email = luxxxlucy@gmail.com
+
 [core]
 	editor = vim
 [alias]

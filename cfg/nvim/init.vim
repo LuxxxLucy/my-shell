@@ -344,7 +344,7 @@ lua <<EOF
                     glyphs = {
                         default = "▤",
                         symlink = "~",
-                        bookmark = "",
+                        bookmark = "",
                         modified = "●",
                         folder = {
                             arrow_closed = "",
@@ -370,10 +370,14 @@ lua <<EOF
         },
         filters = {
             dotfiles = false,
+            git_ignored = false,
         },
     })
 
     require('telescope').setup{
+        defaults = {
+            file_ignore_patterns = {},
+        },
         path_display = {
             "filename_first",
         },
@@ -381,7 +385,15 @@ lua <<EOF
             prompt_position = "top",
             preview_cutoff = 120,
         },
-        sorting_stratefy = "ascending",
+        sorting_strategy = "ascending",
+        pickers = {
+            find_files = {
+                no_ignore = true,
+            },
+            live_grep = {
+                additional_args = { "--no-ignore" },
+            },
+        },
     }
 
     require('orgmode').setup({
@@ -393,7 +405,7 @@ lua <<EOF
                 org_move_subtree_up = '<leader>k',
                 org_move_subtree_down = '<leader>j',
             }
-        }, 
+        },
         callback = function()
             vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
                 silent = true,
