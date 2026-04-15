@@ -226,9 +226,10 @@ let g:smartim_default = 'com.apple.keylayout.ABC'
 " Command completion
 Plug 'gelguy/wilder.nvim'
 
-" SuperTab
-Plug 'ervandew/supertab'
-let g:SuperTabDefaultCompletionType = "<c-n>" " when hit <tab> it goes from top to bottom
+" Tab-completion is handled by blink.cmp via lua/blink_cmp.lua (loaded below).
+" supertab is kept disabled; blink.cmp's super-tab preset covers the same keys.
+" Plug 'ervandew/supertab'
+" let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Cursorline management
 Plug 'delphinus/auto-cursorline.nvim'
@@ -415,3 +416,8 @@ lua <<EOF
     })
 
 EOF
+
+" 6. blink.cmp (autocompletion)
+" Bootstraps lazy.nvim on first run and sets up blink.cmp with the
+" super-tab preset: <Tab> accepts, <C-n>/<C-p> navigate.
+lua require('blink_cmp')
