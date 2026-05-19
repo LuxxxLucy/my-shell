@@ -1,0 +1,54 @@
+name: setup-test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # Full setup on a fresh macOS runner. GHA runners come with brew + Xcode CLT
+  # pre-installed, so this catches script bugs, formula renames, missing deps,
+  # and bootstrap failures — but not a truly virgin Mac.
+  full:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run setup.sh (full)
+        run: ./setup.sh
+      - name: Verify symlinks
+        run: |
+          for f in ~/.zshrc ~/.tmux.conf ~/.gitconfig ~/.githelpers ~/.config/nvim/init.vim; do
+            [ -L "$f" ] || { echo "MISSING SYMLINK: $f"; exit 1; }
+            echo "OK $f -> $(readlink "$f")"
+          done
+      - name: Verify key binaries on PATH after .zshrc loads
+        run: zsh -ic 'for c in eza zoxide fzf lazygit gh node uv claude; do command -v "$c" >/dev/null && echo "OK $c" || echo "MISSING $c"; done'
+
+  # Bare setup: minimal deps only.
+  bare:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run setup.sh --bare
+        run: ./setup.sh --bare
+      - name: Verify symlinks point at *.bare variants
+        run: |
+          for f in ~/.zshrc ~/.tmux.conf ~/.config/nvim/init.vim; do
+            [ -L "$f" ] || { echo "MISSING SYMLINK: $f"; exit 1; }
+            target=$(readlink "$f")
+            case "$target" in
+                *.bare|*init-bare.vim) echo "OK $f -> $target" ;;
+                *) echo "WRONG TARGET: $f -> $target"; exit 1 ;;
+            esac
+          done
+      - name: Verify bare binaries
+        run: zsh -ic 'for c in git git-lfs tmux nvim; do command -v "$c" >/dev/null && echo "OK $c" || { echo "MISSING $c"; exit 1; }; done'
+
+  # No-install path: only re-link configs. Useful regression test for the
+  # symlink phase in isolation.
+  no-install:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run setup.sh --no-install
+        run: ./setup.sh --no-install

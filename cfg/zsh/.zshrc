@@ -1,3 +1,11 @@
+# Put Homebrew on PATH (Apple Silicon at /opt/homebrew, Intel at /usr/local).
+# Required for fresh terminals to see brew-installed tools like zoxide, eza, fzf.
+if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # fzf: vim-friendly navigation (Ctrl-j/k list, Ctrl-h/l preview scroll, Ctrl-u/d half-page)
 export FZF_DEFAULT_OPTS='--height 40% --reverse --bind=ctrl-j:down,ctrl-k:up,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'
 
