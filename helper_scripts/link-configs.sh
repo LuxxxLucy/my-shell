@@ -34,3 +34,7 @@ if [[ $BARE -eq 1 ]]; then
 else
     ln -shf "$REPO_DIR/cfg/nvim/init.vim" ~/.config/nvim/init.vim
 fi
+
+echo "LINKING ghostty ..."
+mkdir -p ~/.config/ghostty
+ln -shf "$REPO_DIR/cfg/ghostty/config" ~/.config/ghostty/config

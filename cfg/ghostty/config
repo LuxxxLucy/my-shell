@@ -1,0 +1,47 @@
+#====================================
+# Ghostty Configuration
+# Author: Jialin Lu (luxxxlucy@gmail.com)
+#
+# Table of Contents:
+# 1. Font
+# 2. Rendering
+# 3. Keybindings
+# 4. Window & Appearance
+#====================================
+
+# 1. Font
+font-family = "Comic Code Ligatures"
+font-style = Medium
+font-family-bold = "Berkeley Mono"
+font-style-bold = Bold
+font-size = 14
+
+# 2. Rendering
+# macOS renders fonts thin (CoreText grayscale AA, no hinting).
+# font-thicken adds stroke weight; strength is 0-255.
+font-thicken = true
+font-thicken-strength = 50
+
+# Alpha-blending color space. native matches Terminal.app.
+alpha-blending = native
+
+font-synthetic-style = no-bold
+
+# Optional tuning — uncomment whole lines (Ghostty has no inline comments).
+# minimum-contrast = 1.1
+# window-colorspace = display-p3
+# adjust-cell-height = 8%
+
+# 3. Keybindings
+# toggle
+keybind = global:shift+space=toggle_visibility
+# hot reload with cmd+shift+r
+keybind = cmd+shift+r=reload_config
+
+# 4. Window & Appearance
+background-opacity = 1
+window-padding-x = 8
+window-padding-y = 6
+cursor-style = block
+cursor-style-blink = false
+macos-titlebar-style = transparent

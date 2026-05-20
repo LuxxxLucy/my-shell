@@ -51,6 +51,7 @@ servers or offline machines.
 │   ├── link-configs.sh     # Phase 2: symlinks
 │   └── bootstrap.sh        # Phase 3: nvim plugins, mac defaults, hints
 └── cfg/
+    ├── ghostty/            config (terminal emulator)
     ├── git/                .gitconfig, .githelpers
     ├── nvim/               init.vim (full) / init-bare.vim (no plugins)
     ├── tmux/               .tmux.conf (full) / .tmux.conf.bare (no TPM)
