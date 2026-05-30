@@ -46,7 +46,8 @@ else
     echo "INSTALLING brew formulas (full) ..."
     brew install \
         git git-lfs tmux neovim \
-        fzf zoxide lazygit node gh eza
+        fzf zoxide lazygit node gh eza \
+        starship zsh-autosuggestions zsh-syntax-highlighting zsh-completions
 
     # fzf shell keybindings (Ctrl-r history, Ctrl-t file picker, etc.)
     "$(brew --prefix)/opt/fzf/install" --no-bash --no-fish --key-bindings --completion --no-update-rc

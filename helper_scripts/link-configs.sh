@@ -38,3 +38,9 @@ fi
 echo "LINKING ghostty ..."
 mkdir -p ~/.config/ghostty
 ln -shf "$REPO_DIR/cfg/ghostty/config" ~/.config/ghostty/config
+
+echo "LINKING starship ..."
+# Bare installs keep zsh's stock prompt and never use starship.
+if [[ $BARE -eq 0 ]]; then
+    ln -shf "$REPO_DIR/cfg/starship/starship.toml" ~/.config/starship.toml
+fi

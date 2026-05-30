@@ -42,3 +42,18 @@ set -o vi
 # Claude Code
 CLAUDE_ARGS=(--dangerously-skip-permissions)
 alias claude='CLAUDE_CODE_NO_FLICKER=1 claude $CLAUDE_ARGS'
+
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+    FPATH="$HOMEBREW_PREFIX/share/zsh-completions:$FPATH"
+
+    # rebuild completion cache once a day
+    autoload -Uz compinit
+    if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then compinit; else compinit -C; fi
+
+    # make completion case-insensitive
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+    source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    eval "$(starship init zsh)"
+    source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
