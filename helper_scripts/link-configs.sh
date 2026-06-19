@@ -7,6 +7,9 @@ echo "LINKING git config ..."
 ln -shf "$REPO_DIR/cfg/git/.gitconfig" ~/.gitconfig
 ln -shf "$REPO_DIR/cfg/git/.githelpers" ~/.githelpers
 
+echo "LINKING clang-format ..."
+ln -shf "$REPO_DIR/cfg/format/clang-format" ~/.clang-format
+
 echo "LINKING zsh ..."
 if [[ $BARE -eq 1 ]]; then
     ln -shf "$REPO_DIR/cfg/zsh/.zshrc.bare" ~/.zshrc

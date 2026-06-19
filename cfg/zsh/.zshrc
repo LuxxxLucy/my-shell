@@ -33,6 +33,46 @@ alias la="ls -a"
 alias v="nvim"
 alias vim="nvim"
 
+# c-fmt: clang-format C/C++ in place. Arg is a file or dir (recursive);
+# style comes from `~/.clang-format`
+c-fmt() {
+  local target="${1:-.}"
+  local files
+  if [ ! -e "$target" ]; then
+    echo "c-fmt: no such path '$target'" >&2
+    return 1
+  fi
+  if [ -d "$target" ]; then
+    files=("${(@f)$(find "$target" \( -name '*.c' -o -name '*.h' -o -name '*.cpp' \
+      -o -name '*.hpp' -o -name '*.cc' -o -name '*.cxx' \) -print)}")
+  else
+    files=("$target")
+  fi
+  files=("${(@)files:#}")  # drop empties (e.g. no matches)
+  if [ ${#files} -eq 0 ]; then
+    echo "c-fmt: no C/C++ files under '$target'"
+    return 0
+  fi
+  local f diff_out add del total_add=0 total_del=0 changed=0
+  for f in "${files[@]}"; do
+    diff_out=$(clang-format "$f" | diff -- "$f" -) || true
+    add=$(print -r -- "$diff_out" | grep -c '^>')
+    del=$(print -r -- "$diff_out" | grep -c '^<')
+    if ! clang-format -i "$f"; then
+      echo "c-fmt: clang-format failed on '$f'" >&2
+      return 1
+    fi
+    if (( add || del )); then
+      changed=$((changed + 1))
+      total_add=$((total_add + add))
+      total_del=$((total_del + del))
+      printf '  +%-4d -%-4d %s\n' $add $del "$f"
+    fi
+  done
+  printf 'c-fmt: %d/%d file(s) changed, +%d -%d lines\n' \
+    $changed ${#files} $total_add $total_del
+}
+
 # set vi mode
 set -o vi
 
