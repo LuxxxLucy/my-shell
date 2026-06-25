@@ -209,6 +209,9 @@ endif
 unlet autoload_plug_path
 call plug#begin(stdpath('config') . '/plugged')
 
+" Local review annotations: `Ano`
+Plug 'LuxxxLucy/ano.nvim'
+
 " Tree-sitter for better syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter'
 
