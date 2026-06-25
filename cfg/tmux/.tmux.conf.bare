@@ -36,6 +36,9 @@ bind g display-popup -E "tmux new-session -A -s scratch"
 # Turn off bells
 set -g bell-action none
 
+# Extended keys On
+set -g extended-keys on
+
 # True Color
 set -g default-terminal "xterm-256color"
 set-option -ga terminal-overrides ",xterm-256color:Tc"
