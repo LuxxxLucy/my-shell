@@ -260,11 +260,33 @@ Plug 'kamykn/popup-menu.nvim'
 " improved vim spell check
 Plug 'kamykn/spelunker.vim'
 let g:enable_spelunker_vim = 1 " enable spelunker
+let g:spelunker_check_type = 2 " always trigger checking, not only on file read/write events.
 let g:spelunker_highlight_type = 1
 let g:spelunker_disable_uri_checking = 1
 let g:spelunker_disable_acronym_checking = 1
 let g:spelunker_disable_backquoted_checking = 1
+let g:spelunker_target_min_char_len = 3
+
+" remap the OG spell's shortcut
+" z= -> correct the current word
+" [s -> jump to previous mistake
+" ]s -> jump to next mistake
 nmap <silent> z= Zl
+nmap <silent> ]s ZN
+nmap <silent> [s ZP
+
+" underline alert style for the words of spell errors
+augroup spelunker_hi
+        autocmd!
+        autocmd ColorScheme * highlight SpelunkerSpellBad cterm=undercurl gui=undercurl guisp=#ff5f5f ctermfg=203
+augroup END
+highlight SpelunkerSpellBad cterm=undercurl gui=undercurl guisp=#ff5f5f ctermfg=203
+
+" perform checks not just on CursorHold and file and buf write.
+augroup spelunker_live
+        autocmd!
+        autocmd CursorHoldI,TextChanged,TextChangedI * call spelunker#check_displayed_words()
+augroup END
 
 " Status line
 Plug 'vim-airline/vim-airline'
