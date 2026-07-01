@@ -12,6 +12,8 @@
 # 1. Font
 font-family = "Comic Code Ligatures"
 font-style = Medium
+# CJK fallback: Maple Mono NF CN
+font-family = "Maple Mono NF CN"
 font-family-bold = "Berkeley Mono"
 font-style-bold = Bold
 font-size = 14
