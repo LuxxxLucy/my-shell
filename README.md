@@ -6,8 +6,8 @@ Personal dotfiles.
 
 ```bash
 # 1. Clone the repo wherever it lives long-term (symlinks point here).
-git clone https://github.com/LuxxxLucy/my-shell.git ~/workspace/my-shell
-cd ~/workspace/my-shell
+git clone https://github.com/LuxxxLucy/my-shell.git ~/some-path/my-shell
+cd ~/some-path/my-shell
 
 # 2. One command does everything: install deps + symlink configs.
 ./setup.sh
@@ -15,31 +15,24 @@ cd ~/workspace/my-shell
 # ./setup.sh --no-install   # re-link only; skip the brew/deps phase
 ```
 
-`setup.sh` triggers the Xcode Command Line Tools installer on first
-run if missing — a GUI prompt appears; re-run `setup.sh` once it
-finishes. After full setup, run `gh auth login` once to authenticate
-with GitHub (stores creds in the macOS keychain).
-
-If you later move the cloned repo, re-run `./setup.sh --no-install` so
-symlinks point to the new path.
-
-## What `setup.sh` does
-
-Three phases delegated to `helper_scripts/`:
-
-1. `install-deps.sh` — Homebrew + dependencies (skipped with `--no-install`).
+`setup.sh` runs mainly the three scripts in `helper_scripts`:
+1. `install-deps.sh` — install the Homebrew + dependencies (skipped with `--no-install`).
 2. `link-configs.sh` — symlinks dotfiles into `$HOME`.
 3. `bootstrap.sh` — first-run hooks (nvim plugins, mac defaults).
+Note that `setup.sh` will perhaps trigger the Xcode Command Line Tools installer on MacOS.
+run if missing — a GUI prompt appears; re-run `setup.sh` once it
+finishes.
 
-Re-runs are safe; every step is idempotent.
+After full setup, run `gh auth login` once to authenticate with Github.
 
-## Bare mode
+If you later move the path the cloned repo, re-run `./setup.sh --no-install` so
+symlinks point to the new path.
 
-`./setup.sh --bare` skips all plugin work — no tpm, no nvim plugins,
-no fzf shell hooks — so it needs no internet beyond the initial brew
-install. Same keybindings as full mode, plugin features swapped for
-built-ins (nvim-tree → netrw, spelunker → built-in spell). Useful on
-servers or offline machines.
+## Mode
+
+Two modes are supported, `bare` is a more minimal version while `full` gets fuller plugin coverage.
+
+> `./setup.sh --bare` skips all plugin work — no tpm, no nvim plugins,
 
 ## Structure
 
@@ -47,9 +40,10 @@ servers or offline machines.
 .
 ├── setup.sh                # thin orchestrator
 ├── helper_scripts/
-│   ├── install-deps.sh     # Phase 1: brew + deps
+│   ├── install-deps.sh     # Phase 1: brew install from deps/
 │   ├── link-configs.sh     # Phase 2: symlinks
 │   └── bootstrap.sh        # Phase 3: nvim plugins, mac defaults, hints
+├── deps/                   # brew package lists
 └── cfg/
     ├── ghostty/            config (terminal emulator)
     ├── git/                .gitconfig, .githelpers
