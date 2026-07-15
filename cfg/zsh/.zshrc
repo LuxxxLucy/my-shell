@@ -76,6 +76,10 @@ c-fmt() {
 # set vi mode
 set -o vi
 
+# fzf shell integration: Ctrl-R history, Ctrl-T files, Alt-C cd
+# (must follow `set -o vi`, which resets the keymaps fzf binds into)
+source <(fzf --zsh)
+
 # uv (Python package manager) env shim
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 

@@ -49,9 +49,6 @@ else
         fzf zoxide lazygit node gh eza \
         starship zsh-autosuggestions zsh-syntax-highlighting zsh-completions
 
-    # fzf shell keybindings (Ctrl-r history, Ctrl-t file picker, etc.)
-    "$(brew --prefix)/opt/fzf/install" --no-bash --no-fish --key-bindings --completion --no-update-rc
-
     # uv (Python package manager). INSTALLER_NO_MODIFY_PATH stops uv from
     # editing ~/.zshrc; the symlinked .zshrc sources ~/.local/bin/env itself.
     if ! command -v uv >/dev/null 2>&1; then

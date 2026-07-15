@@ -10,3 +10,6 @@ fi
 
 # set vi mode
 set -o vi
+
+# Ctrl-R history search (vi insert mode otherwise binds it to redisplay)
+bindkey '^R' history-incremental-search-backward
