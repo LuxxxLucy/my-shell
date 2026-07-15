@@ -1,0 +1,13 @@
+# on top of bare_dependency.txt
+fzf
+zoxide
+lazygit
+node
+gh
+eza
+starship
+zsh-autosuggestions
+zsh-syntax-highlighting
+zsh-completions
+uv
+claude-code

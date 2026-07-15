@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Phase 1: install Homebrew + dependencies.
+# Phase 1: install Homebrew + the packages listed in deps/.
 # Sourced by ../setup.sh; expects $BARE and $REPO_DIR in env.
 
 if [[ "$(uname)" != "Darwin" ]]; then
@@ -39,26 +39,14 @@ elif command -v brew >/dev/null 2>&1; then
     eval "$(brew shellenv)"
 fi
 
+# Package names come from deps/; full = bare + full.
+deps_of() { grep -vE '^[[:space:]]*(#|$)' "$1"; }
+
+pkgs=($(deps_of "$REPO_DIR/deps/bare_dependency.txt"))
 if [[ $BARE -eq 1 ]]; then
-    echo "INSTALLING brew formulas (bare) ..."
-    brew install git git-lfs tmux neovim
+    echo "INSTALLING brew packages (bare) ..."
 else
-    echo "INSTALLING brew formulas (full) ..."
-    brew install \
-        git git-lfs tmux neovim \
-        fzf zoxide lazygit node gh eza \
-        starship zsh-autosuggestions zsh-syntax-highlighting zsh-completions
-
-    # uv (Python package manager). INSTALLER_NO_MODIFY_PATH stops uv from
-    # editing ~/.zshrc; the symlinked .zshrc sources ~/.local/bin/env itself.
-    if ! command -v uv >/dev/null 2>&1; then
-        echo "INSTALLING uv ..."
-        curl -LsSf https://astral.sh/uv/install.sh | env INSTALLER_NO_MODIFY_PATH=1 sh
-    fi
-
-    # Claude Code CLI.
-    if ! command -v claude >/dev/null 2>&1; then
-        echo "INSTALLING Claude Code ..."
-        npm install -g @anthropic-ai/claude-code
-    fi
+    echo "INSTALLING brew packages (full) ..."
+    pkgs+=($(deps_of "$REPO_DIR/deps/full_dependency.txt"))
 fi
+brew install "${pkgs[@]}"
