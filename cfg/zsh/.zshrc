@@ -6,11 +6,14 @@ elif [ -x /usr/local/bin/brew ]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+# User-local binaries: nvim, lazygit, uv, claude on Linux.
+export PATH="$HOME/.local/bin:$PATH"
+
 # fzf: vim-friendly navigation (Ctrl-j/k list, Ctrl-h/l preview scroll, Ctrl-u/d half-page)
 export FZF_DEFAULT_OPTS='--height 40% --reverse --bind=ctrl-j:down,ctrl-k:up,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'
 
 # init zoxide (command `z` as a smarter `cd`)
-eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 # alias `j` for zoxide, `ji` for interactive fzf picker
 alias j="z"
 alias ji="zi"
@@ -76,24 +79,36 @@ c-fmt() {
 # set vi mode
 set -o vi
 
-# fzf: Ctrl-R history, Ctrl-T files, Alt-C cd (after `set -o vi`)
-source <(fzf --zsh)
+# fzf: Ctrl-R history, Ctrl-T files, Alt-C cd (after `set -o vi`).
+# `fzf --zsh` exists on newer fzf; fall back to the apt key-binding scripts.
+if fzf --zsh >/dev/null 2>&1; then
+    source <(fzf --zsh)
+elif [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh 2>/dev/null
+fi
 
 # Claude Code
 CLAUDE_ARGS=(--dangerously-skip-permissions)
 alias claude='CLAUDE_CODE_NO_FLICKER=1 claude $CLAUDE_ARGS'
 
+# Plugin files: Homebrew prefix on macOS, apt + clone paths on Linux.
 if [[ -n "$HOMEBREW_PREFIX" ]]; then
-    FPATH="$HOMEBREW_PREFIX/share/zsh-completions:$FPATH"
+    _zsh_share="$HOMEBREW_PREFIX/share"
+    _zsh_completions="$HOMEBREW_PREFIX/share/zsh-completions"
+else
+    _zsh_share="/usr/share"
+    _zsh_completions="$HOME/.zsh/zsh-completions/src"
+fi
 
-    # rebuild completion cache once a day
-    autoload -Uz compinit
-    if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then compinit; else compinit -C; fi
+# rebuild completion cache once a day
+[[ -d "$_zsh_completions" ]] && FPATH="$_zsh_completions:$FPATH"
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then compinit; else compinit -C; fi
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # case-insensitive
 
-    # make completion case-insensitive
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
-    source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -e "$_zsh_share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    source "$_zsh_share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
     # Tab accepts the grey autosuggestion when one shows, else completes.
     # Fallback is fzf-completion so the normal fzf Tab behavior is preserved.
@@ -109,7 +124,9 @@ if [[ -n "$HOMEBREW_PREFIX" ]]; then
     }
     zle -N _tab_accept_or_complete
     bindkey '^I' _tab_accept_or_complete
-
-    eval "$(starship init zsh)"
-    source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
+
+command -v starship >/dev/null && eval "$(starship init zsh)"
+# syntax-highlighting must load last, after all widgets are defined.
+[[ -e "$_zsh_share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
+    source "$_zsh_share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

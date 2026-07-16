@@ -6,11 +6,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Full setup on a fresh macOS runner. GHA runners come with brew + Xcode CLT
-  # pre-installed, so this catches script bugs, formula renames, missing deps,
-  # and bootstrap failures — but not a truly virgin Mac.
+  # Full setup on both OS families: macOS (brew) and Ubuntu (apt). Catches
+  # script bugs, package renames, missing deps, and bootstrap failures — but
+  # not a truly virgin machine (runners come with toolchains pre-installed).
   full:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Run setup.sh (full)
@@ -24,9 +28,13 @@ jobs:
       - name: Verify key binaries on PATH after .zshrc loads
         run: zsh -ic 'for c in eza zoxide fzf lazygit gh node uv claude; do command -v "$c" >/dev/null && echo "OK $c" || echo "MISSING $c"; done'
 
-  # Bare setup: minimal deps only.
+  # Bare setup: minimal deps only, both OS families.
   bare:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Run setup.sh --bare
@@ -44,10 +52,14 @@ jobs:
       - name: Verify bare binaries
         run: zsh -ic 'for c in git git-lfs tmux nvim; do command -v "$c" >/dev/null && echo "OK $c" || { echo "MISSING $c"; exit 1; }; done'
 
-  # No-install path: only re-link configs. Useful regression test for the
-  # symlink phase in isolation.
+  # No-install path: only re-link configs. Regression test for the symlink
+  # phase in isolation, on both OS families.
   no-install:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Run setup.sh --no-install

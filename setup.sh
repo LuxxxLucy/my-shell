@@ -2,7 +2,8 @@
 #
 # Usage: setup.sh [--bare] [--no-install]
 #
-# Bootstraps a Mac dotfiles install. Each phase lives in helper_scripts/.
+# Bootstraps the dotfiles install (macOS via brew, Ubuntu/Mint via apt).
+# Each phase lives in helper_scripts/.
 #
 # --bare        link minimal *.bare configs and install only their deps.
 # --no-install  skip the brew/deps phase (re-runs that only re-link).
@@ -24,6 +25,15 @@ done
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-[[ $DO_INSTALL -eq 1 ]] && . "$REPO_DIR/helper_scripts/install-deps.sh"
+# Tools installed into ~/.local/bin must be visible to later phases.
+export PATH="$HOME/.local/bin:$PATH"
+
+if [[ $DO_INSTALL -eq 1 ]]; then
+    if [[ "$(uname)" == "Darwin" ]]; then
+        . "$REPO_DIR/helper_scripts/install-deps-macos.sh"
+    else
+        . "$REPO_DIR/helper_scripts/install-deps-linux.sh"
+    fi
+fi
 . "$REPO_DIR/helper_scripts/link-configs.sh"
 . "$REPO_DIR/helper_scripts/bootstrap.sh"

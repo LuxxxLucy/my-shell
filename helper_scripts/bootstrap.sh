@@ -23,4 +23,8 @@ if [[ $BARE -eq 0 ]]; then
     command -v gh >/dev/null 2>&1 && echo "  - Authenticate with GitHub:  gh auth login"
     echo "  - Inside tmux, install plugins: prefix + I  (Ctrl-a then Shift-i)"
 fi
+if [[ "$(uname)" == "Linux" ]]; then
+    command -v zsh >/dev/null 2>&1 && [ "$SHELL" != "$(command -v zsh)" ] && \
+        echo "  - Make zsh your login shell:  chsh -s \$(command -v zsh)"
+fi
 echo "  - Press-and-hold key repeat takes effect after the next login."

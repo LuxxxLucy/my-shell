@@ -89,7 +89,7 @@ set matchtime=1
 set scrolloff=3 " The number of screen lines to keep above and below the cursor.
 set sidescrolloff=5 " The number of screen columns to keep left and right of the cursor.
 set mouse=a " Enable mouse for scrolling and resizing.
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 set title " set window's title as the file currently being edited.
 set linebreak " Wrap lines at convenient points.
 syntax enable " Enable syntax highlighting.

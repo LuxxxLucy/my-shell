@@ -1,5 +1,4 @@
-set-option -g default-shell /bin/zsh
-set -g default-command "/bin/zsh"
+set -g default-command "$SHELL"
 
 # # Set prefix to Ctrl + a
 set -g prefix C-a

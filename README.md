@@ -16,7 +16,7 @@ cd ~/some-path/my-shell
 ```
 
 `setup.sh` runs mainly the three scripts in `helper_scripts`:
-1. `install-deps.sh` — install the Homebrew + dependencies (skipped with `--no-install`).
+1. `install-deps-macos.sh` / `install-deps-linux.sh` — dependencies, by platform (skipped with `--no-install`).
 2. `link-configs.sh` — symlinks dotfiles into `$HOME`.
 3. `bootstrap.sh` — first-run hooks (nvim plugins, mac defaults).
 Note that `setup.sh` will perhaps trigger the Xcode Command Line Tools installer on MacOS.
@@ -40,7 +40,8 @@ Two modes are supported, `bare` is a more minimal version while `full` gets full
 .
 ├── setup.sh                # thin orchestrator
 ├── helper_scripts/
-│   ├── install-deps.sh     # Phase 1: brew install from deps/
+│   ├── install-deps-macos.sh  # Phase 1 (macOS): brew install from deps/
+│   ├── install-deps-linux.sh  # Phase 1 (Linux): apt
 │   ├── link-configs.sh     # Phase 2: symlinks
 │   └── bootstrap.sh        # Phase 3: nvim plugins, mac defaults, hints
 ├── deps/                   # brew package lists
