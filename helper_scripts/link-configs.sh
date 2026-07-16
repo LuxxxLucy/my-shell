@@ -36,6 +36,9 @@ if [[ $BARE -eq 1 ]]; then
     ln -sfn "$REPO_DIR/cfg/nvim/init-bare.vim" ~/.config/nvim/init.vim
 else
     ln -sfn "$REPO_DIR/cfg/nvim/init.vim" ~/.config/nvim/init.vim
+    # init.vim does `require('blink_cmp')`, which lives in cfg/nvim/lua/.
+    # Link the whole lua/ dir so the module is on nvim's runtimepath.
+    ln -sfn "$REPO_DIR/cfg/nvim/lua" ~/.config/nvim/lua
 fi
 
 echo "LINKING ghostty ..."
