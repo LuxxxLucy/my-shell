@@ -94,6 +94,22 @@ if [[ -n "$HOMEBREW_PREFIX" ]]; then
     zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
     source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+    # Tab accepts the grey autosuggestion when one shows, else completes.
+    # Fallback is fzf-completion so the normal fzf Tab behavior is preserved.
+    zstyle ':completion:*' menu select
+    _tab_accept_or_complete() {
+        if [[ -n "$POSTDISPLAY" ]]; then
+            zle autosuggest-accept
+        elif zle -l fzf-completion; then
+            zle fzf-completion
+        else
+            zle expand-or-complete
+        fi
+    }
+    zle -N _tab_accept_or_complete
+    bindkey '^I' _tab_accept_or_complete
+
     eval "$(starship init zsh)"
     source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
