@@ -45,6 +45,10 @@ echo "LINKING ghostty ..."
 mkdir -p ~/.config/ghostty
 ln -sfn "$REPO_DIR/cfg/ghostty/config" ~/.config/ghostty/config
 
+echo "LINKING kitty ..."
+mkdir -p ~/.config/kitty
+ln -sfn "$REPO_DIR/cfg/kitty/kitty.conf" ~/.config/kitty/kitty.conf
+
 echo "LINKING starship ..."
 # Bare installs keep zsh's stock prompt and never use starship.
 if [[ $BARE -eq 0 ]]; then
