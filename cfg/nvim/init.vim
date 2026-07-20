@@ -417,7 +417,7 @@ lua <<EOF
                 no_ignore = true,
             },
             live_grep = {
-                additional_args = { "--no-ignore" },
+                additional_args = { "--glob", "!Cargo.lock" },
             },
         },
     }
