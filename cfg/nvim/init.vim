@@ -129,8 +129,8 @@ set foldnestmax=10 " Folds can be nested.
 set foldmethod=manual " Use `manual` folding.
 augroup remember_folds " Remember folding.
     autocmd!
-    autocmd BufWinLeave .vimrc,*.h,*.cpp,*.c,*.py,*.rs,*.md mkview
-    autocmd BufWinEnter .vimrc,*.h,*.cpp,*.c,*.py,*.rs,*.md silent! loadview
+    autocmd BufWinLeave .vimrc,*.h,*.cpp,*.c,*.py,*.rs,*.md,*.org mkview
+    autocmd BufWinEnter .vimrc,*.h,*.cpp,*.c,*.py,*.rs,*.md,*.org silent! loadview
 augroup END
 
 " 2. Navigation & Tabs
