@@ -21,6 +21,12 @@ set encoding=utf-8
 set fileencodings=utf-8
 scriptencoding utf-8
 
+" Machine-local settings, not tracked. Sets g:org_agenda_files etc.
+let s:local_cfg = stdpath('config') . '/local.vim'
+if filereadable(s:local_cfg)
+        execute 'source ' . s:local_cfg
+endif
+
 " Indentation
 set tabstop=4 " Show existing tabs with 4 spaces width.
 set softtabstop=4
@@ -435,8 +441,8 @@ lua <<EOF
     }
 
     require('orgmode').setup({
-        org_agenda_files = {'~/Desktop/*.org'},
-        org_default_notes_file = '~/Desktop/todo.org',
+        org_agenda_files = vim.g.org_agenda_files or {},
+        org_default_notes_file = vim.g.org_default_notes_file or '~/todo.org',
         mappings = {
             org = {
                 org_toggle_checkbox = '<leader>tt',
