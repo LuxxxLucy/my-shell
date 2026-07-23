@@ -282,6 +282,18 @@ augroup spelunker_hi
 augroup END
 highlight SpelunkerSpellBad cterm=undercurl gui=undercurl guisp=#ff5f5f ctermfg=203
 
+" the suggestion popup passes only cterm colors to its renderer, and drops a
+" style entirely unless both fg and bg are set; habamax leaves ctermfg empty.
+function! s:pmenu_hi() abort
+        highlight Pmenu    ctermfg=252 ctermbg=237 guifg=#d0d0d0 guibg=#3a3a3a
+        highlight PmenuSel ctermfg=232 ctermbg=214 guifg=#080808 guibg=#ffaf00
+endfunction
+augroup pmenu_hi
+        autocmd!
+        autocmd ColorScheme * call s:pmenu_hi()
+augroup END
+call s:pmenu_hi()
+
 " perform checks not just on CursorHold and file and buf write.
 augroup spelunker_live
         autocmd!
