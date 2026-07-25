@@ -39,6 +39,8 @@ else
     # init.vim does `require('blink_cmp')`, which lives in cfg/nvim/lua/.
     # Link the whole lua/ dir so the module is on nvim's runtimepath.
     ln -sfn "$REPO_DIR/cfg/nvim/lua" ~/.config/nvim/lua
+    # colors/lucy.vim is the `colorscheme lucy` set in init.vim.
+    ln -sfn "$REPO_DIR/cfg/nvim/colors" ~/.config/nvim/colors
 fi
 
 echo "LINKING ghostty ..."

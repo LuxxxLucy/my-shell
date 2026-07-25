@@ -100,8 +100,8 @@ set title " set window's title as the file currently being edited.
 set linebreak " Wrap lines at convenient points.
 syntax enable " Enable syntax highlighting.
 
-" Color scheme
-colorscheme habamax
+" Color scheme see cfg/nvim/colors/lucy.vim)
+colorscheme lucy
 
 " Make . to work with visually selected lines in visual mode.
 vnoremap . :normal .<CR>
