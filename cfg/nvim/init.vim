@@ -249,10 +249,12 @@ Plug 'tmsvg/pear-tree'
 " Fuzzy finder
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
 nnoremap <leader>f <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>r <cmd>Telescope frecency<cr>
 
 " <leader>* to search the current word
 nnoremap <leader>* :lua require('telescope.builtin').live_grep({ default_text = vim.fn.expand('<cword>') })<CR>
@@ -438,7 +440,15 @@ lua <<EOF
                 additional_args = { "--glob", "!Cargo.lock" },
             },
         },
+        extensions = {
+            frecency = {
+                show_scores = true,
+                show_filter_column = false,
+            },
+        },
     }
+
+    require('telescope').load_extension('frecency')
 
     require('orgmode').setup({
         org_agenda_files = vim.g.org_agenda_files or {},
