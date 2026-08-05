@@ -446,23 +446,9 @@ lua <<EOF
 
     require('telescope').load_extension('frecency')
 
-    require('orgmode').setup({
-        org_agenda_files = vim.g.org_agenda_files or {},
-        org_default_notes_file = vim.g.org_default_notes_file or '~/todo.org',
-        mappings = {
-            org = {
-                org_toggle_checkbox = '<leader>tt',
-                org_move_subtree_up = '<leader>k',
-                org_move_subtree_down = '<leader>j',
-            }
-        },
-        callback = function()
-            vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
-                silent = true,
-                buffer = true,
-            })
-        end,
-    })
+    -- Set up org-mode
+    require('orgmode-setting')
+
     -- Set up tab completion
     require('blink_cmp')
 
