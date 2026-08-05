@@ -342,11 +342,6 @@ endif
 
 " 5. Lua Configurations
 lua <<EOF
-    vim.cmd([[
-        set signcolumn=yes
-        autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-    ]])
-
     -- Set up NerdTree
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
@@ -468,10 +463,10 @@ lua <<EOF
             })
         end,
     })
+    -- Set up tab completion
+    require('blink_cmp')
+
+    -- Set up language servers
+    require('lsp-setting')
 
 EOF
-
-" 6. blink.cmp (autocompletion)
-" Bootstraps lazy.nvim on first run and sets up blink.cmp with the
-" super-tab preset: <Tab> accepts, <C-n>/<C-p> navigate.
-lua require('blink_cmp')

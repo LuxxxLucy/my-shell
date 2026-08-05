@@ -1,10 +1,7 @@
--- Bootstrap lazy.nvim and load blink.cmp with super-tab keymap preset.
+-- lazy.nvim and blink.cmp settings
 --   <Tab>     → accept completion (or insert tab when menu not visible)
 --   <C-n>     → next item
 --   <C-p>     → previous item
---
--- Sources: buffer, path, snippets, lsp. Works without LSP (buffer words
--- still surface); attach an LSP via :LspStart for code-aware completion.
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
