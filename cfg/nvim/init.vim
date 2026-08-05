@@ -469,4 +469,6 @@ lua <<EOF
     -- Set up language servers
     require('lsp-setting')
 
+    -- Set up build and run
+    require('run-setting')
 EOF
