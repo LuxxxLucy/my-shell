@@ -229,12 +229,11 @@ Plug 'LuxxxLucy/ano.nvim'
 " Tree-sitter for better syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter'
 
-" neovim org-mode
+" neovim org-mode, see lua/orgmode-setting.lua
 Plug 'nvim-orgmode/orgmode'
 
-" File explorer
+" File explorer, see lua/nvim-tree-setting.lua
 Plug 'nvim-tree/nvim-tree.lua'
-map <C-n> :NvimTreeToggle<CR>
 
 " Input method management
 Plug 'ybian/smartim'
@@ -243,8 +242,7 @@ let g:smartim_default = 'com.apple.keylayout.ABC'
 " Command completion
 Plug 'gelguy/wilder.nvim'
 
-" Tab-completion is handled by blink.cmp via lua/blink_cmp.lua (loaded below).
-" supertab is kept disabled; blink.cmp's super-tab preset covers the same keys.
+" Tab completion, see lua/blink-cmp-setting.lua (it replaced supertab)
 " Plug 'ervandew/supertab'
 " let g:SuperTabDefaultCompletionType = "<c-n>"
 
@@ -254,18 +252,10 @@ Plug 'delphinus/auto-cursorline.nvim'
 " Auto-pairs
 Plug 'tmsvg/pear-tree'
 
-" Fuzzy finder
+" Fuzzy finder, see lua/telescope-setting.lua
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
-nnoremap <leader>f <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>r <cmd>Telescope frecency<cr>
-
-" <leader>* to search the current word
-nnoremap <leader>* :lua require('telescope.builtin').live_grep({ default_text = vim.fn.expand('<cword>') })<CR>
 
 " CSS color preview
 Plug 'ap/vim-css-color'
@@ -342,115 +332,17 @@ endif
 
 " 5. Lua Configurations
 lua <<EOF
-    -- Set up NerdTree
-    vim.g.loaded_netrw = 1
-    vim.g.loaded_netrwPlugin = 1
+    -- Set up the file explorer
+    require('nvim-tree-setting')
 
-    vim.g.nvim_tree_show_icons = {
-        git = 0,
-        folders = 0,
-        files = 0,
-        folder_arrows = 0,
-    }
-    require("nvim-tree").setup({
-        sort_by = "case_sensitive",
-        view = {
-            adaptive_size = true,
-        },
-        renderer = {
-            group_empty = true,
-            highlight_diagnostics = false,
-            indent_markers = {
-                    enable = false,
-                    inline_arrows = true,
-                    icons = {
-                        corner = "└",
-                        edge = "│",
-                        item = "│",
-                        bottom = "─",
-                        none = " ",
-                    },
-                },
-            icons = {
-                    padding = " ",
-                    symlink_arrow = " ➜ ",
-                    show = {
-                        file = true,
-                        folder = true,
-                        folder_arrow = true,
-                        git = true,
-                        modified = true,
-                        diagnostics = true,
-                        bookmarks = true,
-                    },
-                    glyphs = {
-                        default = "▤",
-                        symlink = "~",
-                        bookmark = "",
-                        modified = "●",
-                        folder = {
-                            arrow_closed = "",
-                            arrow_open = "",
-                            default = "▶",
-                            open = "▼",
-                            empty = "▶",
-                            empty_open = "▼",
-                            symlink = "└",
-                            symlink_open = "└",
-                        },
-                        git = {
-                            unstaged = "✗",
-                            staged = "✓",
-                            unmerged = "U",
-                            renamed = "➜",
-                            untracked = "★",
-                            deleted = "D",
-                            ignored = "◌",
-                        },
-                    }
-            }
-        },
-        filters = {
-            dotfiles = false,
-            git_ignored = false,
-        },
-    })
-
-    require('telescope').setup{
-        defaults = {
-            file_ignore_patterns = {},
-        },
-        path_display = {
-            "filename_first",
-        },
-        layout_config = {
-            prompt_position = "top",
-            preview_cutoff = 120,
-        },
-        sorting_strategy = "ascending",
-        pickers = {
-            find_files = {
-                no_ignore = true,
-            },
-            live_grep = {
-                additional_args = { "--glob", "!Cargo.lock" },
-            },
-        },
-        extensions = {
-            frecency = {
-                show_scores = true,
-                show_filter_column = false,
-            },
-        },
-    }
-
-    require('telescope').load_extension('frecency')
+    -- Set up the fuzzy finder
+    require('telescope-setting')
 
     -- Set up org-mode
     require('orgmode-setting')
 
     -- Set up tab completion
-    require('blink_cmp')
+    require('blink-cmp-setting')
 
     -- Set up language servers
     require('lsp-setting')
