@@ -39,6 +39,11 @@ set smarttab
 " Performance
 set ttyfast
 set lazyredraw
+set updatetime=300 " How long the cursor must rest before CursorHold fires.
+
+" Completion
+set completeopt=menuone,noselect,noinsert
+set shortmess+=c
 
 " Search
 set incsearch " Find the next match as we type the search.
@@ -98,6 +103,9 @@ set mouse=a " Enable mouse for scrolling and resizing.
 set clipboard+=unnamedplus
 set title " set window's title as the file currently being edited.
 set linebreak " Wrap lines at convenient points.
+set signcolumn=yes
+set list
+set listchars+=space:⋅,eol:↴
 syntax enable " Enable syntax highlighting.
 
 " Color scheme see cfg/nvim/colors/lucy.vim)
@@ -334,13 +342,6 @@ endif
 
 " 5. Lua Configurations
 lua <<EOF
-    -- Set up specs
-    vim.opt.list = true
-    vim.opt.listchars:append "space:⋅"
-    vim.opt.listchars:append "eol:↴"
-    vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
-    vim.opt.shortmess = vim.opt.shortmess + { c = true}
-    vim.api.nvim_set_option('updatetime', 300)
     vim.cmd([[
         set signcolumn=yes
         autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
