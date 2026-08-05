@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 #
-# Phase 1 (Linux): apt packages, plus release binaries / installers for the
-# tools not in Ubuntu/Mint repos. Sourced by ../setup.sh; expects $BARE and
-# $REPO_DIR in env. Targets apt-based distros (Ubuntu, Linux Mint), x86_64.
+# install packages
+# Used by ../setup.sh; expects $BARE and $REPO_DIR in env.
 
 if ! command -v apt-get >/dev/null 2>&1; then
     echo "Linux install path targets apt (Ubuntu / Linux Mint). Use --no-install elsewhere." >&2

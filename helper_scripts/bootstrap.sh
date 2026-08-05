@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Phase 3: first-time bootstrap (nvim plugins, mac defaults) and print
-# next-step hints. Sourced by ../setup.sh; expects $BARE in env.
+# first-time bootstrap (nvim plugins, mac defaults) and print next-step hints.
+# Used by ../setup.sh; expects $BARE in env.
 
 if [[ $BARE -eq 0 ]] && command -v nvim >/dev/null 2>&1; then
     echo "INSTALLING nvim plugins (headless; needs network) ..."

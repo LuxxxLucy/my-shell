@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Phase 1: install Homebrew + the packages listed in deps/.
-# Sourced by ../setup.sh; expects $BARE and $REPO_DIR in env.
+# install Homebrew + the packages listed in deps/.
+# Used by ../setup.sh; expects $BARE and $REPO_DIR in env.
 
 if [[ "$(uname)" != "Darwin" ]]; then
     echo "Install phase only supports macOS. Use --no-install elsewhere." >&2

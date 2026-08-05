@@ -2,8 +2,10 @@
 #
 # Usage: setup.sh [--bare] [--no-install]
 #
-# Bootstraps the dotfiles install (macOS via brew, Ubuntu/Mint via apt).
-# Each phase lives in helper_scripts/.
+# Bootstraps the dotfiles install
+#      macOS via brew,
+#      Ubuntu via apt.
+# Uses the scripts from helper_scripts/.
 #
 # --bare        link minimal *.bare configs and install only their deps.
 # --no-install  skip the brew/deps phase (re-runs that only re-link).

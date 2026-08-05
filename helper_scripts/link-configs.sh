@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Phase 2: symlink configs from this repo into $HOME.
-# Sourced by ../setup.sh; expects $BARE and $REPO_DIR in env.
+# symlink configs from this repo into $HOME.
+# Used by ../setup.sh; expects $BARE and $REPO_DIR in env.
 
 echo "LINKING git config ..."
 ln -sfn "$REPO_DIR/cfg/git/.gitconfig" ~/.gitconfig
@@ -36,10 +36,9 @@ if [[ $BARE -eq 1 ]]; then
     ln -sfn "$REPO_DIR/cfg/nvim/init-bare.vim" ~/.config/nvim/init.vim
 else
     ln -sfn "$REPO_DIR/cfg/nvim/init.vim" ~/.config/nvim/init.vim
-    # init.vim does `require('blink_cmp')`, which lives in cfg/nvim/lua/.
-    # Link the whole lua/ dir so the module is on nvim's runtimepath.
+    # Link the lua/ dir so the module is on nvim's runtimepath.
     ln -sfn "$REPO_DIR/cfg/nvim/lua" ~/.config/nvim/lua
-    # colors/lucy.vim is the `colorscheme lucy` set in init.vim.
+    # Link the colors/ dir for colorscheme
     ln -sfn "$REPO_DIR/cfg/nvim/colors" ~/.config/nvim/colors
 fi
 

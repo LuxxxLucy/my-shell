@@ -9,7 +9,7 @@ Personal dotfiles.
 git clone https://github.com/LuxxxLucy/my-shell.git ~/some-path/my-shell
 cd ~/some-path/my-shell
 
-# 2. One command does everything: install deps + symlink configs.
+# 2. Setup.
 ./setup.sh                  # full mode with all the deps and plugins
 # ./setup.sh --bare         # minimal (no plugins): tmux, neovim
 # ./setup.sh --no-install   # re-link only; skip the brew/deps phase
