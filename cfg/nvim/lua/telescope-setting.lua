@@ -7,17 +7,18 @@
 --      <leader>*   grep the word under the cursor
 
 require('telescope').setup{
+    -- setup() reads only defaults, pickers and extensions
     defaults = {
         file_ignore_patterns = {},
+        path_display = {
+            "filename_first",
+        },
+        layout_config = {
+            prompt_position = "top",
+            preview_cutoff = 120,
+        },
+        sorting_strategy = "ascending",
     },
-    path_display = {
-        "filename_first",
-    },
-    layout_config = {
-        prompt_position = "top",
-        preview_cutoff = 120,
-    },
-    sorting_strategy = "ascending",
     pickers = {
         find_files = {
             no_ignore = true,
