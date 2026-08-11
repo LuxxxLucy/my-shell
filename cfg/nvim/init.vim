@@ -237,7 +237,7 @@ Plug 'nvim-tree/nvim-tree.lua'
 
 " Input method management
 Plug 'ybian/smartim'
-let g:smartim_default = 'com.apple.keylayout.ABC'
+let g:smartim_default = 'com.apple.keylayout.Canadian'
 
 " Command completion
 Plug 'gelguy/wilder.nvim'
