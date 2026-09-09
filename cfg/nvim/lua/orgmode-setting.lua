@@ -31,6 +31,7 @@ vim.api.nvim_create_autocmd('FileType', {
     pattern = 'org',
     callback = function()
         vim.opt_local.conceallevel = 2 -- hide the url half of [[url][text]]
+        vim.opt_local.indentexpr = '' -- drop the nvim org-mode plugin's own indent
         vim.opt_local.concealcursor = 'nc'
         vim.opt_local.wrap = false -- wrap budgets screen rows by the raw line, then conceal skips the url
         vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
