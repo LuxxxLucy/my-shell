@@ -31,6 +31,7 @@ require('telescope').setup{
         frecency = {
             show_scores = true,
             show_filter_column = false,
+            db_safe_mode = false,
         },
     },
 }
