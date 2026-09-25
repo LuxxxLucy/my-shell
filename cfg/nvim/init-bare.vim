@@ -90,7 +90,7 @@ set linebreak " Wrap lines at convenient points.
 syntax enable " Enable syntax highlighting.
 
 " Color scheme
-colorscheme habamax
+silent! colorscheme habamax
 
 " Make . to work with visually selected lines in visual mode.
 vnoremap . :normal .<CR>

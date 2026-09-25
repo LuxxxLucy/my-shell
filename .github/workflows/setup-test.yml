@@ -21,7 +21,7 @@ jobs:
         run: ./setup.sh
       - name: Verify symlinks
         run: |
-          for f in ~/.zshrc ~/.tmux.conf ~/.gitconfig ~/.githelpers ~/.config/nvim/init.vim; do
+          for f in ~/.zshrc ~/.tmux.conf ~/.gitconfig ~/.githelpers ~/.config/nvim/init.vim ~/.vimrc; do
             [ -L "$f" ] || { echo "MISSING SYMLINK: $f"; exit 1; }
             echo "OK $f -> $(readlink "$f")"
           done
@@ -41,7 +41,7 @@ jobs:
         run: ./setup.sh --bare
       - name: Verify symlinks point at *.bare variants
         run: |
-          for f in ~/.zshrc ~/.tmux.conf ~/.config/nvim/init.vim; do
+          for f in ~/.zshrc ~/.tmux.conf ~/.config/nvim/init.vim ~/.vimrc; do
             [ -L "$f" ] || { echo "MISSING SYMLINK: $f"; exit 1; }
             target=$(readlink "$f")
             case "$target" in

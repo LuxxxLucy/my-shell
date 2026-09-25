@@ -42,6 +42,9 @@ else
     ln -sfn "$REPO_DIR/cfg/nvim/colors" ~/.config/nvim/colors
 fi
 
+echo "LINKING vim ..."
+ln -sfn "$REPO_DIR/cfg/nvim/init-bare.vim" ~/.vimrc
+
 echo "LINKING ghostty ..."
 mkdir -p ~/.config/ghostty
 ln -sfn "$REPO_DIR/cfg/ghostty/config" ~/.config/ghostty/config
