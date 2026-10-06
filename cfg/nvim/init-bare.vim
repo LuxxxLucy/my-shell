@@ -123,6 +123,11 @@ augroup remember_folds " Remember folding.
 augroup END
 
 " 2. Navigation & Tabs
+
+" maps backspace as a second leader
+nmap <BS> <Leader>
+xmap <BS> <Leader>
+
 nnoremap <silent> < gT<CR>
 nnoremap <silent> > gt<CR>
 
